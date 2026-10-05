@@ -10,7 +10,7 @@ export function EventCard({ e, club }: { e: typeof events.$inferSelect; club?: s
         <StatusBadge status={e.status} />
         <span className="text-xs text-muted">{humanize(e.type)}</span>
       </div>
-      <div className="mt-3 text-lg font-extrabold leading-tight text-ink group-hover:text-brand-deep">{e.title}</div>
+      <div className="mt-3 text-lg font-bold leading-tight text-ink group-hover:text-brand-deep">{e.title}</div>
       {club && <div className="text-xs font-semibold text-ink-2">{club}</div>}
       <p className="mt-2 flex-1 text-sm text-muted">{e.tagline}</p>
       <div className="mt-4 flex flex-wrap items-center justify-between gap-2 text-sm">

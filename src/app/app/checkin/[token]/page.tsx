@@ -33,7 +33,7 @@ export default async function PassPage({ params }: { params: Promise<{ token: st
           <div className="mt-4 flex justify-center">
             <Avatar name={owner.name} size={56} />
           </div>
-          <h1 className="mt-3 text-2xl font-extrabold">{owner.name}</h1>
+          <h1 className="mt-3 text-2xl font-bold">{owner.name}</h1>
           {team && (
             <div className="text-sm text-muted">
               {team.name} · {team.code}

@@ -35,7 +35,7 @@ export default async function MyEvents() {
                   <StatusBadge status={e.status} />
                   <span className="text-xs text-muted">{humanize(e.type)}</span>
                 </div>
-                <h2 className="mt-2 text-xl font-extrabold">
+                <h2 className="mt-2 text-xl font-bold">
                   <Link href={`/events/${e.slug}`} className="hover:text-brand-deep">
                     {e.title}
                   </Link>

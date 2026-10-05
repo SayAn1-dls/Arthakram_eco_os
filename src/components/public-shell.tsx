@@ -19,8 +19,8 @@ export async function PublicHeader() {
   const user = await getCurrentUser();
   return (
     <header className="sticky top-0 z-30 border-b border-line/70 bg-paper/90 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-7xl items-center gap-6 px-4 sm:px-6">
-        <Wordmark size="sm" />
+      <div className="mx-auto flex h-[76px] max-w-7xl items-center gap-6 px-4 sm:px-6">
+        <Wordmark size="sm" priority />
         <nav className="hidden flex-1 items-center gap-1 lg:flex">
           {PUBLIC_NAV.map((n) => (
             <Link key={n.href} href={n.href} className="rounded-md px-2.5 py-1.5 text-[13.5px] font-medium text-ink-2 hover:bg-paper-2 hover:text-ink">
@@ -55,7 +55,7 @@ export function PublicFooter() {
     <footer className="mt-24 border-t border-line">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div>
-          <Wordmark size="sm" subtitle="Ecosystem OS" />
+          <Wordmark size="md" withClubLine />
           <p className="mt-4 max-w-xs text-sm text-muted">
             Helping students discover where they belong — and helping organizations run the ecosystem around them.
           </p>
@@ -67,7 +67,7 @@ export function PublicFooter() {
           ["Arthakram", [["Clubs", "/clubs"], ["Sign in", "/login"], ["Create account", "/signup"]]],
         ].map(([title, links]) => (
           <div key={title as string}>
-            <div className="eyebrow mb-3 !text-[0.65rem]">{title as string}</div>
+            <div className="eyebrow mb-3">{title as string}</div>
             <ul className="space-y-2 text-sm">
               {(links as string[][]).map(([l, h]) => (
                 <li key={h}>
@@ -81,7 +81,7 @@ export function PublicFooter() {
         ))}
       </div>
       <div className="border-t border-line py-5 text-center text-xs text-muted">
-        <span className="eyebrow !text-[0.6rem] text-brand-deep">Founders Day 2026</span> · Arthakram for the 1%
+        Founders Day 2026 · Arthakram for the 1%
       </div>
     </footer>
   );

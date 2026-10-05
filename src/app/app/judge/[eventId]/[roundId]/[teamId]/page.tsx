@@ -54,7 +54,7 @@ export default async function EvaluatePage({ params }: { params: Promise<{ event
         <div className="eyebrow text-brand-deep">
           {event.title} · {round.name}
         </div>
-        <h1 className="mt-1 text-3xl font-extrabold tracking-tight">
+        <h1 className="mt-1 text-3xl font-bold">
           {team.name} <span className="text-lg font-semibold text-muted">{team.code}</span>
         </h1>
       </div>

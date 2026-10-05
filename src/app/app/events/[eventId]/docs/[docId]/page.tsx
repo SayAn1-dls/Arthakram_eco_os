@@ -67,7 +67,7 @@ export default async function DocPage({ params, searchParams }: { params: Promis
               <StatusBadge status={doc.status} />
               <StatusBadge status={doc.visibility} />
             </div>
-            <h1 className="mt-2 text-3xl font-extrabold tracking-tight">{doc.title}</h1>
+            <h1 className="mt-2 text-3xl font-bold">{doc.title}</h1>
             <p className="mt-1 text-xs text-muted">
               Last edited {fmtDateTime(doc.updatedAt ?? doc.createdAt)}
               {editor && ` by ${editor}`}

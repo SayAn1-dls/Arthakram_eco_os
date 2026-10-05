@@ -61,7 +61,7 @@ function Shell({ title, body, children }: { title: string; body: string; childre
     <div className="flex min-h-screen items-center justify-center px-4">
       <div className="w-full max-w-sm rounded-2xl border border-line bg-card p-6 text-center">
         <Wordmark size="sm" />
-        <h1 className="mt-6 text-xl font-extrabold">{title}</h1>
+        <h1 className="mt-6 text-xl font-bold">{title}</h1>
         <p className="mt-1 text-sm text-muted">{body}</p>
         {children}
       </div>

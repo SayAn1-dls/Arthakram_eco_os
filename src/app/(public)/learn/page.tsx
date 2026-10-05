@@ -11,14 +11,14 @@ export default async function LearnPage() {
   const list = db.select().from(learningResources).where(eq(learningResources.active, true)).orderBy(asc(learningResources.order)).all();
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-      <PageHeader eyebrow="Learn / Resources" title="Learn from Arthakram’s dedicated products" description="Product Guys and Consulting are separate Arthakram products. This ecosystem connects you to them — and to the archive of past competitions." />
+      <PageHeader eyebrow="Learn / Resources" title="Learn" description="Product Guys and Consulting are Arthakram’s own learning sites. Start there, then look at past competitions to see what judges look for." />
       <div className="grid gap-6 md:grid-cols-2">
         {list.map((r) => {
           const external = r.url?.startsWith("http");
           return (
             <div key={r.id} className={`flex flex-col rounded-[var(--radius-card)] border p-7 ${r.kind === "arthakram_product" ? "border-brand bg-card" : "border-line bg-card"}`}>
               <Badge tone={r.kind === "arthakram_product" ? "solid" : "neutral"}>{r.kind === "arthakram_product" ? "Arthakram product" : humanize(r.kind)}</Badge>
-              <h2 className="mt-4 text-3xl font-extrabold tracking-tight">{r.title}</h2>
+              <h2 className="mt-4 text-3xl font-bold">{r.title}</h2>
               <p className="mt-2 flex-1 text-ink-2">{r.description}</p>
               <div className="mt-6">
                 {r.url ? (

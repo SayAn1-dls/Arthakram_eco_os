@@ -23,7 +23,7 @@ export default async function PresentTimer({ params }: { params: Promise<{ event
     <div className="flex min-h-screen flex-col items-center justify-between bg-paper p-10">
       <div className="flex w-full items-center justify-between">
         <Wordmark size="md" />
-        <div className="text-right text-xl font-extrabold">{event.title}</div>
+        <div className="text-right text-xl font-bold">{event.title}</div>
       </div>
       <LiveTimerFocus eventId={eventId} initial={timers} serverNow={Date.now()} timerId={timerId} />
       <div className="eyebrow text-brand-deep">Arthakram for the 1%</div>

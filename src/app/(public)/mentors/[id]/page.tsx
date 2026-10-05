@@ -23,7 +23,7 @@ export default async function MentorPage({ params }: { params: Promise<{ id: str
             <Avatar name={name} size={72} />
             <div>
               <div className="eyebrow text-brand-deep">Mentor</div>
-              <h1 className="text-4xl font-extrabold tracking-tight">{name}</h1>
+              <h1 className="text-4xl font-bold">{name}</h1>
               <p className="text-lg text-ink-2">{m.headline}</p>
             </div>
           </div>

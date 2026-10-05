@@ -8,7 +8,7 @@ export function PermissionMatrix({ selected, disabled }: { selected: Set<string>
     <div className="space-y-5">
       {groups.map((g) => (
         <div key={g}>
-          <div className="eyebrow mb-2 !text-[0.62rem] text-brand-deep">{g}</div>
+          <div className="eyebrow mb-2 text-brand-deep">{g}</div>
           <div className="grid gap-3 md:grid-cols-2">
             {PERMISSION_MODULES.filter((m) => m.group === g).map((m) => (
               <div key={m.key} className="rounded-lg border border-line bg-white/60 p-3">

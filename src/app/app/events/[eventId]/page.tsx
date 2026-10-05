@@ -73,7 +73,7 @@ export default async function ControlRoom({ params }: { params: Promise<{ eventI
               {event.status === "live" ? "● Event live" : `Event ${event.status}`}
             </div>
             <div className="text-sm opacity-80">Current round</div>
-            <div className="text-2xl font-extrabold">{current ? current.name : "No round active"}</div>
+            <div className="text-2xl font-bold">{current ? current.name : "No round active"}</div>
             {current && (
               <div className="mt-1 text-sm opacity-85">
                 {humanize(current.status)}

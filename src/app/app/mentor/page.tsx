@@ -23,7 +23,7 @@ export default async function MentorDashboard() {
 
   return (
     <>
-      <PageHeader eyebrow="Review" title="Mentor dashboard" description="Requests from students, teams you mentor at events, and the structured reviews you've given." />
+      <PageHeader eyebrow="Review" title="Mentoring" description="Requests from students, teams you’re mentoring at events, and reviews you’ve written." />
       {profile?.status === "pending" && <div className="mb-6 rounded-xl border border-warn/30 bg-amber-50 px-4 py-3 text-sm text-warn">Your mentor profile is awaiting admin approval. Students can’t find you yet.</div>}
       <StatRow className="mb-6 lg:grid-cols-4">
         <Stat value={pending.length} label="New requests" tone="brand" />

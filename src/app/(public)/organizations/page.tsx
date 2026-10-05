@@ -19,8 +19,8 @@ export default async function OrgsPage() {
           const nEvents = db.select({ id: events.id }).from(events).where(eq(events.organizationId, o.id)).all().filter(Boolean).length;
           return (
             <Link key={o.id} href={`/organizations/${o.slug}`} className="rounded-[var(--radius-card)] border border-line bg-card p-6 hover:border-brand">
-              <div className="eyebrow !text-[0.62rem]">{humanize(o.kind)}</div>
-              <div className="mt-2 text-xl font-extrabold text-ink">{o.name}</div>
+              <div className="eyebrow">{humanize(o.kind)}</div>
+              <div className="mt-2 text-xl font-bold text-ink">{o.name}</div>
               <p className="mt-2 text-sm text-muted">{o.description}</p>
               <div className="mt-4 text-xs text-muted">{cols.length} colleges · {nClubs} clubs · {nEvents} events</div>
             </Link>

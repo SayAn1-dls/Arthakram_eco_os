@@ -38,13 +38,13 @@ export default async function MyPath({ searchParams }: { searchParams: Promise<{
           <div className="text-sm text-ink-2">Start by telling us what you’re into — every recommendation builds on it.</div>
         </div>
       )}
-      <PageHeader eyebrow="My Path" title="What should I do next?" description="Arthakram connects you from interest to club, learning, competition, mentor, project, feedback — and on to the next opportunity." />
+      <PageHeader eyebrow="Me" title="My path" description="A simple plan for your next few weeks, based on your interests, your clubs and what you’ve done so far." />
       <div className="mb-8 grid gap-4 md:grid-cols-3">
         {steps.map((s, i) => (
           <Card key={s.title} className={i === 0 ? "border-brand" : ""}>
             <div className="flex items-center gap-2">
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-brand text-sm font-extrabold text-white">{i + 1}</span>
-              <span className="eyebrow !text-[0.6rem]">Step {i + 1}</span>
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-brand text-sm font-bold text-white">{i + 1}</span>
+              <span className="eyebrow">Step {i + 1}</span>
             </div>
             <h3 className="mt-3 text-lg font-bold text-ink">{s.title}</h3>
             <p className="mt-1 text-sm text-muted">{s.detail}</p>
@@ -54,7 +54,7 @@ export default async function MyPath({ searchParams }: { searchParams: Promise<{
           </Card>
         ))}
       </div>
-      <Card title="Your journey" eyebrow="The Arthakram graph, for you">
+      <Card title="Where you are" eyebrow="Green means done. Orange is where to go next.">
         <ol className="relative grid gap-3 md:grid-cols-4 xl:grid-cols-8">
           {journey.map((j, i) => (
             <li key={j.label}>

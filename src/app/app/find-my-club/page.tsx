@@ -21,9 +21,9 @@ export default async function FindMyClub({ searchParams }: { searchParams: Promi
     return (
       <>
         <PageHeader
-          eyebrow="Find My Club"
-          title="Which club fits how you think?"
-          description="Not a personality quiz. Your answers become scores on 12 dimensions — interests, skills, how you work, your goals — and are matched transparently against what each club actually does."
+          eyebrow="Clubs for me"
+          title="Find a club that suits you"
+          description="Answer honestly, there are no right answers. We compare what you enjoy and how you like to work with what each club actually does, and show you why."
         />
         <ActionForm action={submitAssessment} className="space-y-8">
           {sections.map((sec) => (
@@ -34,7 +34,7 @@ export default async function FindMyClub({ searchParams }: { searchParams: Promi
                     <legend className="mb-2.5 font-semibold text-ink">{q.prompt}</legend>
                     {q.kind === "scale" ? (
                       <div className="flex flex-wrap items-center gap-2">
-                        <span className="text-xs text-muted">Not me</span>
+                        <span className="text-xs text-muted">Not really</span>
                         {[1, 2, 3, 4, 5].map((v) => (
                           <label key={v} className="cursor-pointer">
                             <input type="radio" name={q.id} value={v} required className="peer sr-only" />
@@ -43,7 +43,7 @@ export default async function FindMyClub({ searchParams }: { searchParams: Promi
                             </span>
                           </label>
                         ))}
-                        <span className="text-xs text-muted">Very me</span>
+                        <span className="text-xs text-muted">Very much</span>
                       </div>
                     ) : (
                       <div className="grid gap-2 sm:grid-cols-2">
@@ -77,8 +77,8 @@ export default async function FindMyClub({ searchParams }: { searchParams: Promi
   return (
     <>
       <PageHeader
-        eyebrow="Find My Club · Results"
-        title={done ? "Here’s where you fit." : "Your club matches"}
+        eyebrow="Clubs for me"
+        title="Your club matches"
         description={`Based on your assessment from ${fmtDate(result.assessment.createdAt)}. Recommendations get sharper as you compete, build and collect mentor feedback.`}
         actions={<LinkButton href="/app/find-my-club?retake=1" variant="outline">Retake</LinkButton>}
       />
@@ -87,9 +87,9 @@ export default async function FindMyClub({ searchParams }: { searchParams: Promi
           <div className="grid gap-6 lg:grid-cols-[1fr_1.2fr]">
             <div>
               <Badge tone="solid">Best match</Badge>
-              <h2 className="mt-3 text-3xl font-extrabold tracking-tight">{top.club!.name}</h2>
-              <div className="mt-1 text-5xl font-extrabold text-brand tabular">{top.score}%</div>
-              <div className="mt-4 eyebrow !text-[0.65rem]">Why</div>
+              <h2 className="mt-3 text-3xl font-bold">{top.club!.name}</h2>
+              <div className="mt-1 text-5xl font-bold text-brand tabular">{top.score}%</div>
+              <div className="mt-4 eyebrow">Why</div>
               <ul className="mt-2 space-y-1 text-sm">
                 {top.reasons.map((r) => (
                   <li key={r}>• {r}</li>
@@ -110,19 +110,19 @@ export default async function FindMyClub({ searchParams }: { searchParams: Promi
             </div>
             <div className="grid gap-5 sm:grid-cols-2">
               <div>
-                <div className="eyebrow mb-2 !text-[0.65rem]">What you’ll learn</div>
+                <div className="eyebrow mb-2">What you’ll learn</div>
                 <DashList items={top.club!.learnings.slice(0, 3).map((l) => ({ title: <span className="text-sm">{l}</span> }))} />
               </div>
               <div>
-                <div className="eyebrow mb-2 !text-[0.65rem]">What you’ll do</div>
+                <div className="eyebrow mb-2">What you’ll do</div>
                 <DashList items={top.club!.activities.slice(0, 3).map((l) => ({ title: <span className="text-sm">{l}</span> }))} />
               </div>
               <div>
-                <div className="eyebrow mb-2 !text-[0.65rem]">Who fits</div>
+                <div className="eyebrow mb-2">Who fits</div>
                 <p className="text-sm text-ink-2">{top.club!.fitProfile}</p>
               </div>
               <div>
-                <div className="eyebrow mb-2 !text-[0.65rem]">Career paths</div>
+                <div className="eyebrow mb-2">Career paths</div>
                 <div className="flex flex-wrap gap-1">
                   {top.club!.careerPaths.map((c) => (
                     <Badge key={c}>{c}</Badge>
@@ -130,7 +130,7 @@ export default async function FindMyClub({ searchParams }: { searchParams: Promi
                 </div>
               </div>
               <div className="sm:col-span-2">
-                <div className="eyebrow mb-2 !text-[0.65rem]">Suggested first steps</div>
+                <div className="eyebrow mb-2">Suggested first steps</div>
                 <ol className="list-decimal space-y-1 pl-5 text-sm">
                   {top.club!.firstSteps.map((f) => (
                     <li key={f}>{f}</li>
@@ -146,7 +146,7 @@ export default async function FindMyClub({ searchParams }: { searchParams: Promi
           <ul className="divide-y divide-line/70">
             {rest.map((m) => (
               <li key={m.clubId} className="flex flex-wrap items-center gap-4 py-3">
-                <div className="w-14 text-2xl font-extrabold tabular text-ink">{m.score}%</div>
+                <div className="w-14 text-2xl font-bold tabular text-ink">{m.score}%</div>
                 <div className="min-w-0 flex-1">
                   <Link href={`/clubs/${m.club!.slug}`} className="font-bold text-ink hover:text-brand-deep">
                     {m.club!.name}

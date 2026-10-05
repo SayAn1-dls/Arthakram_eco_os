@@ -64,7 +64,7 @@ export default async function Mentorship() {
                     <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-4">
                       {r.scores.map((s) => (
                         <div key={s.dimension} className="rounded-lg bg-paper-2/70 p-2">
-                          <div className="text-xl font-extrabold tabular">
+                          <div className="text-xl font-bold tabular">
                             {s.score}
                             <span className="text-sm text-muted">/10</span>
                           </div>

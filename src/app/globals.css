@@ -1,12 +1,11 @@
 @import "tailwindcss";
-@import "@fontsource-variable/figtree";
-@import "@fontsource/great-vibes";
+@import "@fontsource-variable/source-sans-3";
 
-/* Arthakram design tokens — taken from the Founders Day poster:
-   cream paper, a single confident orange, near-black ink, spaced small caps. */
+/* Arthakram design tokens, taken from the Founders Day poster: cream paper,
+   one orange, near-black ink. Type is Source Sans 3, a humanist face that
+   reads like a well-made institutional tool rather than a landing page. */
 @theme {
-  --font-sans: "Figtree Variable", ui-sans-serif, system-ui, sans-serif;
-  --font-script: "Great Vibes", cursive;
+  --font-sans: "Source Sans 3 Variable", "Source Sans Pro", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
 
   --color-paper: #fdf4ee;
   --color-paper-2: #f9e9df;
@@ -36,16 +35,30 @@ body {
   background: var(--color-paper);
   color: var(--color-ink);
   font-family: var(--font-sans);
+  font-size: 15.5px;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* Spaced uppercase label, e.g. "WHAT WE DO" */
+h1, h2, h3 {
+  text-wrap: balance;
+  letter-spacing: -0.005em;
+}
+
+/* Small section label. Sentence case, no tracking: it orients, it doesn't shout. */
 .eyebrow {
-  font-size: 0.72rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-muted);
+}
+
+/* The poster's spaced capitals ("WHAT WE DO"). Used sparingly, on brand moments only. */
+.caps {
+  font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--color-ink-2);
 }
 
 /* Marker highlight behind a phrase, as on "to final product." */
@@ -87,8 +100,7 @@ body {
 .prose-ak h2,
 .prose-ak h3 {
   color: var(--color-ink);
-  font-weight: 800;
-  letter-spacing: -0.01em;
+  font-weight: 700;
   margin: 1.4em 0 0.5em;
   line-height: 1.2;
 }

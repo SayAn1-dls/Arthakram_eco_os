@@ -18,7 +18,7 @@ export default async function ArchivePage({ searchParams }: { searchParams: Prom
   const names = clubNames();
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
-      <PageHeader eyebrow="Archive" title="The competition knowledge base" description="Completed events don’t disappear. Problem statements, rubrics, results and final reports — searchable, for the next team to learn from." />
+      <PageHeader eyebrow="Archive" title="Past competitions" description="Problem statements, rubrics, results and final reports from events that have finished. A good place to prepare for the next one." />
       <form className="mb-8 max-w-md"><input name="q" defaultValue={q} placeholder="Search past events…" className="h-10 w-full rounded-lg border border-line bg-white px-3 text-sm focus:border-brand focus:outline-none" /></form>
       {list.length === 0 && <EmptyState title="Nothing archived yet" />}
       <div className="space-y-4">
@@ -32,13 +32,13 @@ export default async function ArchivePage({ searchParams }: { searchParams: Prom
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
                   <div className="flex items-center gap-2"><Badge>{humanize(e.type)}</Badge><span className="text-xs text-muted">{fmtDate(e.startsAt)} · {e.clubId ? names.get(e.clubId) : ""}</span></div>
-                  <Link href={`/events/${e.slug}`} className="mt-2 block text-xl font-extrabold text-ink hover:text-brand-deep">{e.title}</Link>
+                  <Link href={`/events/${e.slug}`} className="mt-2 block text-xl font-bold text-ink hover:text-brand-deep">{e.title}</Link>
                   <p className="text-sm text-muted">{e.tagline}</p>
                 </div>
                 <div className="flex gap-4 text-center text-sm">
-                  <div><div className="text-xl font-extrabold">{tm}</div><div className="text-xs text-muted">teams</div></div>
-                  <div><div className="text-xl font-extrabold">{ps || "—"}</div><div className="text-xs text-muted">problems</div></div>
-                  <div><div className="text-xl font-extrabold">{rb}</div><div className="text-xs text-muted">rubrics</div></div>
+                  <div><div className="text-xl font-bold">{tm}</div><div className="text-xs text-muted">teams</div></div>
+                  <div><div className="text-xl font-bold">{ps || "—"}</div><div className="text-xs text-muted">problems</div></div>
+                  <div><div className="text-xl font-bold">{rb}</div><div className="text-xs text-muted">rubrics</div></div>
                 </div>
               </div>
               {docs.length > 0 && (

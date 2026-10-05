@@ -134,11 +134,11 @@ export function DataTable({
                 </th>
               )}
               {columns.map((c) => (
-                <th key={c.key} className={cn("border-b border-line bg-paper-2/60 px-4 py-2.5 text-[11px] font-bold uppercase tracking-[0.12em] text-ink-2", c.className)}>
+                <th key={c.key} className={cn("border-b border-line bg-paper-2/60 px-4 py-2.5 text-[13px] font-semibold text-ink-2", c.className)}>
                   {c.sortable !== false ? (
                     <button
                       type="button"
-                      className="inline-flex items-center gap-1 uppercase hover:text-brand-deep"
+                      className="inline-flex items-center gap-1 hover:text-brand-deep"
                       onClick={() => setSort((s) => (s?.key === c.key ? { key: c.key, dir: (s.dir * -1) as 1 | -1 } : { key: c.key, dir: 1 }))}
                     >
                       {c.label}

@@ -36,7 +36,7 @@ export function LoginForm({ next }: { next?: string }) {
         <FormMessage state={state} />
       </form>
       <div className="mt-10 rounded-xl border border-line bg-card p-4">
-        <div className="eyebrow mb-1 !text-[0.62rem]">Demo accounts</div>
+        <div className="eyebrow mb-1">Demo accounts</div>
         <p className="mb-3 text-xs text-muted">
           Password for all: <code className="rounded bg-paper-2 px-1">arthakram123</code>. Each role sees a different Arthakram.
         </p>

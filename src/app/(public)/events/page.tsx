@@ -17,7 +17,7 @@ export default async function EventsPage({ searchParams }: { searchParams: Promi
   const chip = (active: boolean) => cn("rounded-full border px-3 py-1 text-sm font-semibold", active ? "border-brand bg-brand text-white" : "border-line bg-card hover:border-brand");
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
-      <PageHeader eyebrow="Events" title="Events across the ecosystem" description="Hackathons, cases, MUNs, workshops and more — run on Arthakram by clubs and organizations." />
+      <PageHeader eyebrow="Events" title="Events" description="Hackathons, case competitions, MUNs, workshops and more, run by clubs on Arthakram." />
       <div className="mb-8 flex flex-wrap gap-2">
         <a href="?" className={chip(!type && !when)}>All</a>
         <a href="?when=upcoming" className={chip(when === "upcoming")}>Live & upcoming</a>

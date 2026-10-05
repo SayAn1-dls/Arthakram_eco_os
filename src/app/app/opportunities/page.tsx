@@ -45,7 +45,7 @@ export default async function OpportunityFeed({ searchParams }: { searchParams: 
           <Card key={o.id} className="scroll-mt-20" >
             <div id={o.id} className="flex items-start gap-4">
               <div className="flex h-16 w-16 shrink-0 flex-col items-center justify-center rounded-xl bg-brand text-white">
-                <span className="text-xl font-extrabold leading-none">{score}%</span>
+                <span className="text-xl font-bold leading-none">{score}%</span>
                 <span className="mt-0.5 text-[9px] font-bold tracking-widest">MATCH</span>
               </div>
               <div className="min-w-0 flex-1">
@@ -63,7 +63,7 @@ export default async function OpportunityFeed({ searchParams }: { searchParams: 
             </div>
             {o.description && <p className="mt-3 text-sm text-ink-2">{o.description}</p>}
             <div className="mt-3 rounded-lg bg-paper-2/70 p-3">
-              <div className="eyebrow mb-1 !text-[0.6rem]">Why</div>
+              <div className="eyebrow mb-1">Why</div>
               <ul className="space-y-0.5 text-sm text-ink-2">
                 {reasons.map((r) => (
                   <li key={r}>• {r}</li>

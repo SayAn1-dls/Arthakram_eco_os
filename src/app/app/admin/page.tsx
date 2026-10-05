@@ -31,7 +31,7 @@ export default async function AdminHome() {
   const liveEvents = db.select().from(events).where(and(eq(events.status, "live"))).all();
   return (
     <>
-      <PageHeader eyebrow="Admin" title="Control center" description="Control → Configure → Delegate → Monitor → Analyze." actions={<LinkButton href="/app/admin/users">Manage access</LinkButton>} />
+      <PageHeader eyebrow="Admin" title="Admin overview" description="What needs your attention, what’s live and what changed recently." actions={<LinkButton href="/app/admin/users">Manage access</LinkButton>} />
       <div className="mb-8 grid grid-cols-2 gap-6 rounded-[var(--radius-card)] border border-line bg-card p-5 sm:grid-cols-5">
         <Stat value={stats.users} label="Users" />
         <Stat value={`${stats.orgs} · ${stats.colleges} · ${stats.clubs}`} label="Orgs · colleges · clubs" />

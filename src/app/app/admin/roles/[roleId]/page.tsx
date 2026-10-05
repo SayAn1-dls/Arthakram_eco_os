@@ -31,7 +31,7 @@ export default async function RoleDetail({ params }: { params: Promise<{ roleId:
       </Link>
       <div className="flex items-center gap-3">
         <span className="h-4 w-4 rounded-full" style={{ background: role.color }} />
-        <h1 className="text-3xl font-extrabold">{role.name}</h1>
+        <h1 className="text-3xl font-bold">{role.name}</h1>
         {role.isSystem ? <Badge>System role — fixed</Badge> : <Badge tone="brand">Custom</Badge>}
       </div>
       <div className="grid gap-6 xl:grid-cols-[1fr_300px]">

@@ -4,9 +4,9 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
   return (
     <div className="grid min-h-screen lg:grid-cols-[1fr_1.1fr]">
       <div className="relative hidden overflow-hidden bg-paper-2 lg:flex lg:flex-col lg:justify-between lg:p-12">
-        <Wordmark size="lg" subtitle="Ecosystem OS" />
+        <Wordmark size="lg" withClubLine priority />
         <div>
-          <h2 className="text-5xl font-extrabold leading-[1.05] tracking-tight">
+          <h2 className="text-5xl font-bold leading-[1.05]">
             First principles
             <br />
             <span className="highlight">to final product.</span>
