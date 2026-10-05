@@ -51,7 +51,7 @@ export default async function UserDetail({ params }: { params: Promise<{ userId:
         <div className="flex flex-wrap items-center gap-4">
           <Avatar name={u.name} size={56} />
           <div className="flex-1">
-            <h1 className="text-2xl font-extrabold">{u.name}</h1>
+            <h1 className="text-2xl font-bold">{u.name}</h1>
             <div className="text-sm text-muted">
               {u.email} · joined {fmtDate(u.createdAt)} {u.headline && `· ${u.headline}`}
             </div>

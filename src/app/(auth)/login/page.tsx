@@ -11,7 +11,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
   return (
     <>
       <div className="eyebrow mb-2 text-brand-deep">Welcome back</div>
-      <h1 className="text-3xl font-extrabold tracking-tight">Sign in to Arthakram</h1>
+      <h1 className="text-3xl font-bold">Sign in to Arthakram</h1>
       <p className="mt-2 text-sm text-muted">
         New here?{" "}
         <Link href="/signup" className="font-semibold text-brand-deep hover:underline">

@@ -1,30 +1,68 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/cn";
 
-export function EventTabs({ base, tabs }: { base: string; tabs: { href: string; label: string }[] }) {
+type Tab = { href: string; label: string; group: string };
+
+/**
+ * Event workspace navigation. Wide screens: tabs grouped by task.
+ * Phones: one dropdown, so nothing hides off-screen.
+ */
+export function EventTabs({ base, tabs }: { base: string; tabs: Tab[] }) {
   const pathname = usePathname();
+  const router = useRouter();
+  const isActive = (t: Tab) => (t.href === "" ? pathname === base : pathname === base + t.href || pathname.startsWith(base + t.href + "/"));
+  const groups = [...new Set(tabs.map((t) => t.group))];
+  const current = tabs.find(isActive);
   return (
-    <nav className="no-print -mx-1 flex gap-x-1 gap-y-2 overflow-x-auto pb-1 [scrollbar-width:thin] xl:flex-wrap xl:overflow-visible">
-      {tabs.map((t) => {
-        const href = base + t.href;
-        const active = t.href === "" ? pathname === base : pathname === href || pathname.startsWith(href + "/");
-        return (
-          <Link
-            key={t.href}
-            href={href}
-            className={cn(
-              "relative whitespace-nowrap rounded-md px-3 py-2 text-[13px] font-semibold transition-colors",
-              active ? "text-ink" : "text-muted hover:bg-paper-2 hover:text-ink",
-            )}
-          >
-            {t.label}
-            {active && <span className="absolute inset-x-3 -bottom-1 h-[3px] rounded bg-brand" />}
-          </Link>
-        );
-      })}
-    </nav>
+    <>
+      <label className="block md:hidden">
+        <span className="sr-only">Workspace section</span>
+        <select
+          value={current?.href ?? ""}
+          onChange={(e) => router.push(base + e.target.value)}
+          className="h-11 w-full rounded-lg border border-line bg-white px-3 text-[15px] font-semibold"
+        >
+          {groups.map((g) => (
+            <optgroup key={g} label={g}>
+              {tabs
+                .filter((t) => t.group === g)
+                .map((t) => (
+                  <option key={t.href} value={t.href}>
+                    {t.label}
+                  </option>
+                ))}
+            </optgroup>
+          ))}
+        </select>
+      </label>
+      <nav className="no-print hidden flex-wrap gap-x-6 gap-y-3 md:flex" aria-label="Event workspace">
+        {groups.map((g) => (
+          <div key={g} className="flex items-center gap-0.5">
+            <span className="mr-1.5 text-[12px] font-semibold text-muted">{g}</span>
+            {tabs
+              .filter((t) => t.group === g)
+              .map((t) => {
+                const active = isActive(t);
+                return (
+                  <Link
+                    key={t.href}
+                    href={base + t.href}
+                    aria-current={active ? "page" : undefined}
+                    className={cn(
+                      "whitespace-nowrap rounded-md px-2.5 py-1.5 text-[14px] transition-colors",
+                      active ? "bg-ink font-semibold text-white" : "text-ink-2 hover:bg-paper-2 hover:text-ink",
+                    )}
+                  >
+                    {t.label}
+                  </Link>
+                );
+              })}
+          </div>
+        ))}
+      </nav>
+    </>
   );
 }

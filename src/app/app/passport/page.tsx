@@ -15,12 +15,12 @@ export default async function PassportPage() {
   for (const s of p.scored) results.set(s.eventId, [...(results.get(s.eventId) ?? []), s.total ?? 0]);
   return (
     <>
-      <PageHeader eyebrow="Student Passport" title="Evidence, not badges." description="A record of what you have actually done on Arthakram — competitions, submissions, results, mentor reviews and clubs." actions={<PrintButton label="Export PDF" />} />
+      <PageHeader eyebrow="Me" title="My passport" description="Everything you’ve done on Arthakram in one place: events, submissions, results, mentor reviews and clubs. Download it as a PDF for applications." actions={<PrintButton label="Export PDF" />} />
       <Card className="mb-6">
         <div className="flex flex-wrap items-center gap-4">
           <Avatar name={user.name} size={64} />
           <div className="flex-1">
-            <h2 className="text-2xl font-extrabold">{user.name}</h2>
+            <h2 className="text-2xl font-bold">{user.name}</h2>
             <p className="text-sm text-muted">
               {user.headline ?? profile?.program ?? "Arthakram member"}
               {profile?.year ? ` · Year ${profile.year}` : ""}
@@ -41,7 +41,7 @@ export default async function PassportPage() {
         <Stat value={p.clubs.length} label="Clubs" />
       </StatRow>
       <div className="grid gap-6 lg:grid-cols-[1fr_1fr]">
-        <Card title="Skills, with evidence" eyebrow="Derived from your activity">
+        <Card title="Skills you’ve shown" eyebrow="Each one backed by things you’ve actually done">
           {p.skills.length === 0 ? (
             <EmptyState title="No evidence yet">Join an event or request a mentor review to start your passport.</EmptyState>
           ) : (
@@ -73,7 +73,7 @@ export default async function PassportPage() {
             <ul className="space-y-3">
               {p.awards.map(({ a, e }) => (
                 <li key={a.id} className="flex items-center gap-3">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand font-extrabold text-white">{a.rank}</span>
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand font-bold text-white">{a.rank}</span>
                   <div>
                     <div className="font-bold text-ink">{a.title}</div>
                     <Link href={`/events/${e.slug}`} className="text-xs text-muted hover:text-brand-deep">

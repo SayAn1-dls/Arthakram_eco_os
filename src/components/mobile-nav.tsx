@@ -12,7 +12,7 @@ export function MobileNav({ items }: { items: { href: string; label: string }[] 
         {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
       </button>
       {open && (
-        <div className="absolute inset-x-0 top-16 z-40 border-b border-line bg-paper px-4 py-3 shadow-lg">
+        <div className="absolute inset-x-0 top-[76px] z-40 border-b border-line bg-paper px-4 py-3 shadow-lg">
           {items.map((i) => (
             <Link key={i.href} href={i.href} onClick={() => setOpen(false)} className="block rounded-md px-2 py-2.5 font-medium text-ink-2 hover:bg-paper-2">
               {i.label}

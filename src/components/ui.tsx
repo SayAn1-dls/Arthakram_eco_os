@@ -58,17 +58,16 @@ export function PageHeader({
   children?: ReactNode;
 }) {
   return (
-    <header className="mb-8">
+    <header className="mb-7 border-b border-line pb-5">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div className="min-w-0">
-          {eyebrow && <Eyebrow className="mb-2 text-brand-deep">{eyebrow}</Eyebrow>}
-          <h1 className="text-[1.9rem] font-extrabold leading-tight tracking-tight text-ink sm:text-[2.2rem]">{title}</h1>
-          {description && <p className="mt-2 max-w-2xl text-[15px] text-muted">{description}</p>}
+          {eyebrow && <div className="mb-1 text-[13px] font-semibold text-brand-deep">{eyebrow}</div>}
+          <h1 className="text-[1.75rem] font-bold leading-tight text-ink sm:text-[2rem]">{title}</h1>
+          {description && <p className="mt-1.5 max-w-2xl text-[15px] text-muted">{description}</p>}
         </div>
         {actions && <div className="flex flex-wrap items-center gap-2">{actions}</div>}
       </div>
       {children}
-      <hr className="rule mt-6" />
     </header>
   );
 }
@@ -93,8 +92,8 @@ export function Card({
       {(title || eyebrow || actions) && (
         <div className="flex items-start justify-between gap-3 border-b border-line px-5 py-4">
           <div className="min-w-0">
-            {eyebrow && <Eyebrow className="mb-1 !text-[0.65rem]">{eyebrow}</Eyebrow>}
-            {title && <h2 className="text-[15px] font-bold text-ink">{title}</h2>}
+            {title && <h2 className="text-[15.5px] font-bold text-ink">{title}</h2>}
+            {eyebrow && <div className="mt-0.5 text-[13px] text-muted">{eyebrow}</div>}
           </div>
           {actions && <div className="flex shrink-0 items-center gap-2">{actions}</div>}
         </div>
@@ -117,7 +116,7 @@ export function Stat({
 }) {
   return (
     <div className="min-w-0">
-      <div className={cn("tabular text-[2rem] font-extrabold leading-none tracking-tight", tone === "brand" ? "text-brand" : "text-ink")}>
+      <div className={cn("tabular text-[2rem] font-bold leading-none", tone === "brand" ? "text-brand" : "text-ink")}>
         {value}
       </div>
       <div className="mt-1.5 text-[13px] leading-snug text-ink-2">{label}</div>
@@ -244,7 +243,7 @@ export function Table({ children, className }: { children: ReactNode; className?
   );
 }
 export function Th({ children, className }: { children?: ReactNode; className?: string }) {
-  return <th className={cn("border-b border-line bg-paper-2/60 px-4 py-2.5 text-[11px] font-bold uppercase tracking-[0.12em] text-ink-2", className)}>{children}</th>;
+  return <th className={cn("border-b border-line bg-paper-2/60 px-4 py-2.5 text-[13px] font-semibold text-ink-2", className)}>{children}</th>;
 }
 export function Td({ children, className, colSpan }: { children?: ReactNode; className?: string; colSpan?: number }) {
   return <td colSpan={colSpan} className={cn("border-b border-line/70 px-4 py-3 align-middle text-ink-2", className)}>{children}</td>;
@@ -284,7 +283,7 @@ export function Forbidden({ message }: { message?: string }) {
   return (
     <div className="mx-auto max-w-lg py-20 text-center">
       <div className="eyebrow mb-3 text-brand-deep">Access restricted</div>
-      <h1 className="text-2xl font-extrabold">You don’t have access to this.</h1>
+      <h1 className="text-2xl font-bold">You don’t have access to this.</h1>
       <p className="mt-2 text-muted">
         {message ?? "Arthakram admins decide who can view and edit each module. Ask an admin or the event organizer to grant you access."}
       </p>

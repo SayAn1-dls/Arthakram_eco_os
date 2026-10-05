@@ -42,7 +42,7 @@ export default async function CheckinPage({ params, searchParams }: { params: Pr
         <Stat value={`${done}/${all.length}`} label="Checked in" tone="brand" />
         <Stat value={all.length - done} label="Still expected" />
         <div>
-          <div className="text-[2rem] font-extrabold leading-none">{pct(done, all.length)}%</div>
+          <div className="text-[2rem] font-bold leading-none">{pct(done, all.length)}%</div>
           <Progress value={done} max={all.length} className="mt-3" />
         </div>
       </StatRow>

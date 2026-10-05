@@ -16,7 +16,7 @@ export default async function EventWorkspaceLayout({ children, params }: { child
       <div className="mb-5">
         <div className="mb-2 flex flex-wrap items-center gap-2 text-xs text-muted">
           <Link href="/app/events" className="hover:text-brand-deep">
-            Event workspaces
+            Manage events
           </Link>
           <span>/</span>
           <span>{ctx.org?.name}</span>
@@ -29,7 +29,7 @@ export default async function EventWorkspaceLayout({ children, params }: { child
         </div>
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <h1 className="text-[1.9rem] font-extrabold leading-tight tracking-tight">{event.title}</h1>
+            <h1 className="text-[1.9rem] font-bold leading-tight">{event.title}</h1>
             <div className="mt-1.5 flex flex-wrap items-center gap-2 text-sm text-muted">
               <StatusBadge status={event.status} />
               <span>{humanize(event.type)}</span>
@@ -52,8 +52,8 @@ export default async function EventWorkspaceLayout({ children, params }: { child
           )}
         </div>
       </div>
-      <div className="mb-8 border-b border-line">
-        <EventTabs base={`/app/events/${eventId}`} tabs={tabs.map(({ href, label }) => ({ href, label }))} />
+      <div className="mb-7 border-b border-line pb-3">
+        <EventTabs base={`/app/events/${eventId}`} tabs={tabs.map(({ href, label, group }) => ({ href, label, group }))} />
       </div>
       {children}
     </div>

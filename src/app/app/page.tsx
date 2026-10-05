@@ -60,18 +60,18 @@ export default async function Dashboard() {
     <div className="space-y-8">
       <header>
         <div className="eyebrow mb-2 text-brand-deep">{fmtDate(new Date(), { weekday: "long", day: "numeric", month: "long" })}</div>
-        <h1 className="text-[2.2rem] font-extrabold leading-tight tracking-tight">
-          Good {hour < 12 ? "morning" : hour < 17 ? "afternoon" : "evening"}, <span className="highlight">{first}.</span>
+        <h1 className="text-[2.2rem] font-bold leading-tight">
+          Good {hour < 12 ? "morning" : hour < 17 ? "afternoon" : "evening"}, {first}
         </h1>
         <p className="mt-2 text-muted">
           {unread ? `${unread} unread notification${unread > 1 ? "s" : ""}. ` : ""}
-          Here’s what matters across your ecosystem today.
+          Here’s what’s coming up for you.
         </p>
       </header>
 
       {(myWorkspaces.length > 0 || judgePending > 0 || mentorPending > 0 || platform) && (
         <section>
-          <div className="eyebrow mb-3">Today’s work</div>
+          <h2 className="mb-3 text-[17px] font-bold">Your work today</h2>
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {myWorkspaces.map((e) => {
               const s = eventStats(e.id, e.currentRoundId);
@@ -84,17 +84,17 @@ export default async function Dashboard() {
                   <div className="mt-2 font-bold text-ink">{e.title}</div>
                   <div className="mt-3 grid grid-cols-3 gap-2 text-sm">
                     <div>
-                      <div className="font-extrabold tabular">{s.teamCount}</div>
+                      <div className="font-bold tabular">{s.teamCount}</div>
                       <div className="text-xs text-muted">teams</div>
                     </div>
                     <div>
-                      <div className="font-extrabold tabular">
+                      <div className="font-bold tabular">
                         {s.submitted}/{s.teamCount}
                       </div>
                       <div className="text-xs text-muted">submitted</div>
                     </div>
                     <div>
-                      <div className="font-extrabold tabular">
+                      <div className="font-bold tabular">
                         {s.evalDone}/{s.evalTotal}
                       </div>
                       <div className="text-xs text-muted">evaluated</div>
@@ -106,14 +106,14 @@ export default async function Dashboard() {
             {judgePending > 0 && (
               <Link href="/app/judge" className="rounded-[var(--radius-card)] border border-line bg-card p-5 hover:border-brand">
                 <Badge tone="brand">Judge</Badge>
-                <div className="mt-3 text-[2rem] font-extrabold leading-none">{judgePending}</div>
+                <div className="mt-3 text-[2rem] font-bold leading-none">{judgePending}</div>
                 <div className="mt-1 text-sm text-ink-2">evaluations waiting for you</div>
               </Link>
             )}
             {mentorPending > 0 && (
               <Link href="/app/mentor" className="rounded-[var(--radius-card)] border border-line bg-card p-5 hover:border-brand">
                 <Badge tone="info">Mentor</Badge>
-                <div className="mt-3 text-[2rem] font-extrabold leading-none">{mentorPending}</div>
+                <div className="mt-3 text-[2rem] font-bold leading-none">{mentorPending}</div>
                 <div className="mt-1 text-sm text-ink-2">mentorship requests to answer</div>
               </Link>
             )}
@@ -122,19 +122,19 @@ export default async function Dashboard() {
                 <div className="eyebrow !text-white/70">Platform</div>
                 <div className="mt-3 grid grid-cols-2 gap-3">
                   <div>
-                    <div className="text-2xl font-extrabold">{platform.users}</div>
+                    <div className="text-2xl font-bold">{platform.users}</div>
                     <div className="text-xs text-white/70">users</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-extrabold">{platform.live}</div>
+                    <div className="text-2xl font-bold">{platform.live}</div>
                     <div className="text-xs text-white/70">live events</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-extrabold">{platform.upcoming}</div>
+                    <div className="text-2xl font-bold">{platform.upcoming}</div>
                     <div className="text-xs text-white/70">upcoming</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-extrabold">{platform.opps}</div>
+                    <div className="text-2xl font-bold">{platform.opps}</div>
                     <div className="text-xs text-white/70">opportunities</div>
                   </div>
                 </div>
@@ -145,12 +145,12 @@ export default async function Dashboard() {
       )}
 
       <section className="grid gap-6 lg:grid-cols-[1.25fr_1fr]">
-        <Card title="What should I do next?" eyebrow="Your next 3 steps" actions={<Link href="/app/path" className="text-sm font-semibold text-brand-deep hover:underline">My Path</Link>}>
+        <Card title="Suggested next steps" eyebrow="Based on your profile and activity" actions={<Link href="/app/path" className="text-sm font-semibold text-brand-deep hover:underline">See full plan</Link>}>
           {steps.length ? (
             <ol className="space-y-4">
               {steps.map((s, i) => (
                 <li key={s.title} className="flex gap-4">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand text-sm font-extrabold text-white">{i + 1}</span>
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand text-sm font-bold text-white">{i + 1}</span>
                   <div className="min-w-0 flex-1">
                     <div className="font-bold text-ink">{s.title}</div>
                     <div className="text-sm text-muted">{s.detail}</div>
@@ -165,7 +165,7 @@ export default async function Dashboard() {
             <p className="text-sm text-muted">You’re on track. Keep competing and collecting feedback.</p>
           )}
         </Card>
-        <Card title="Upcoming" eyebrow="Deadlines & events">
+        <Card title="Coming up">
           {deadlines.length === 0 ? (
             <p className="text-sm text-muted">Nothing coming up. Save opportunities to track their deadlines here.</p>
           ) : (
@@ -186,7 +186,7 @@ export default async function Dashboard() {
       </section>
 
       <section className="grid gap-6 lg:grid-cols-3">
-        <Card title="Recommended opportunities" actions={<Link href="/app/opportunities" className="text-sm font-semibold text-brand-deep hover:underline">All</Link>}>
+        <Card title="Opportunities for you" actions={<Link href="/app/opportunities" className="text-sm font-semibold text-brand-deep hover:underline">All</Link>}>
           <ul className="space-y-4">
             {opps.map((x) => (
               <li key={x.o.id}>
@@ -217,19 +217,19 @@ export default async function Dashboard() {
               ))}
             </ul>
           ) : (
-            <EmptyState title="Find where you belong" action={<LinkButton href="/app/find-my-club" size="sm">Start Find My Club</LinkButton>}>
-              17 questions, transparent reasons.
+            <EmptyState title="Find a club that suits you" action={<LinkButton href="/app/find-my-club" size="sm">Start Find My Club</LinkButton>}>
+              17 quick questions. Every suggestion comes with reasons.
             </EmptyState>
           )}
         </Card>
-        <Card title="Student Passport" actions={<Link href="/app/passport" className="text-sm font-semibold text-brand-deep hover:underline">Open</Link>}>
+        <Card title="Your passport" actions={<Link href="/app/passport" className="text-sm font-semibold text-brand-deep hover:underline">Open</Link>}>
           <div className="grid grid-cols-2 gap-4">
             <Stat value={pp.history.length} label="Events" />
             <Stat value={pp.awards.length} label="Awards" tone="brand" />
             <Stat value={pp.reviews.length} label="Mentor reviews" />
             <Stat value={pp.clubs.length} label="Clubs" />
           </div>
-          {pp.skills[0] && <p className="mt-4 text-xs text-muted">Strongest evidence: <b className="text-ink">{pp.skills[0].label}</b></p>}
+          {pp.skills[0] && <p className="mt-4 text-xs text-muted">Strongest area: <b className="text-ink">{pp.skills[0].label}</b></p>}
         </Card>
       </section>
 
@@ -253,7 +253,7 @@ export default async function Dashboard() {
             </ul>
           )}
         </Card>
-        <Card title="Recent activity" actions={<Link href="/app/notifications" className="text-sm font-semibold text-brand-deep hover:underline">Notifications</Link>}>
+        <Card title="Latest updates" actions={<Link href="/app/notifications" className="text-sm font-semibold text-brand-deep hover:underline">Notifications</Link>}>
           {recent.length === 0 ? (
             <p className="text-sm text-muted">Quiet so far.</p>
           ) : (

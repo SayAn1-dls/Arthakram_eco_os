@@ -38,7 +38,7 @@ export default async function ClubPage({ params }: { params: Promise<{ slug: str
             <span className="h-3 w-3 rounded-full" style={{ background: c.color }} />
             <span className="eyebrow">{c.category} · {college?.name}</span>
           </div>
-          <h1 className="mt-3 text-[clamp(2.2rem,5vw,3.4rem)] font-extrabold leading-[1.05] tracking-tight">{c.name}</h1>
+          <h1 className="mt-3 text-[clamp(2.2rem,5vw,3.4rem)] font-bold leading-[1.05]">{c.name}</h1>
           {c.tagline && <p className="mt-2 text-2xl font-bold"><span className="highlight">{c.tagline}</span></p>}
           <p className="mt-6 max-w-2xl text-lg text-ink-2">{c.description}</p>
           <div className="mt-10 grid gap-8 md:grid-cols-2">
@@ -72,9 +72,9 @@ export default async function ClubPage({ params }: { params: Promise<{ slug: str
         <aside className="space-y-5">
           <Card>
             <div className="grid grid-cols-3 gap-3 text-center">
-              <div><div className="text-2xl font-extrabold">{active.length}</div><div className="text-xs text-muted">members</div></div>
-              <div><div className="text-2xl font-extrabold">{evs.length}</div><div className="text-xs text-muted">events</div></div>
-              <div><div className="text-2xl font-extrabold">{wins.length}</div><div className="text-xs text-muted">awards</div></div>
+              <div><div className="text-2xl font-bold">{active.length}</div><div className="text-xs text-muted">members</div></div>
+              <div><div className="text-2xl font-bold">{evs.length}</div><div className="text-xs text-muted">events</div></div>
+              <div><div className="text-2xl font-bold">{wins.length}</div><div className="text-xs text-muted">awards</div></div>
             </div>
             <div className="mt-5 border-t border-line pt-5">
               {!user ? (

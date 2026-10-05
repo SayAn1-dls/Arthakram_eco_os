@@ -52,7 +52,7 @@ export default async function EventPublicPage({ params }: { params: Promise<{ sl
             <Badge>{humanize(e.type)}</Badge>
             {e.tags.map((t) => <Badge key={t} tone="brand">{t}</Badge>)}
           </div>
-          <h1 className="mt-4 text-[clamp(2.2rem,5vw,3.6rem)] font-extrabold leading-[1.02] tracking-tight">{e.title}</h1>
+          <h1 className="mt-4 text-[clamp(2.2rem,5vw,3.6rem)] font-bold leading-[1.1]">{e.title}</h1>
           {e.tagline && <p className="mt-3 text-xl text-ink-2">{e.tagline}</p>}
           <hr className="rule my-8 max-w-md" />
           <Markdown>{e.description}</Markdown>
@@ -63,9 +63,9 @@ export default async function EventPublicPage({ params }: { params: Promise<{ sl
               <ol className="space-y-2">
                 {results.rows.slice(0, 5).map((r) => (
                   <li key={r.teamId} className="flex items-center gap-4 rounded-xl border border-line bg-card px-4 py-3">
-                    <span className={`flex h-9 w-9 items-center justify-center rounded-full font-extrabold ${r.rank === 1 ? "bg-brand text-white" : "bg-paper-2"}`}>{r.rank}</span>
+                    <span className={`flex h-9 w-9 items-center justify-center rounded-full font-bold ${r.rank === 1 ? "bg-brand text-white" : "bg-paper-2"}`}>{r.rank}</span>
                     <span className="flex-1 font-bold text-ink">{r.teamName}</span>
-                    <span className="tabular text-lg font-extrabold">{r.average.toFixed(1)}</span>
+                    <span className="tabular text-lg font-bold">{r.average.toFixed(1)}</span>
                   </li>
                 ))}
               </ol>

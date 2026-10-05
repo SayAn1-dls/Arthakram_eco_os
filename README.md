@@ -45,7 +45,7 @@ Demo data is relative to *now*, so the **Product Hackathon 2026 is always live**
 
 - **Next.js 16** (App Router, Server Components, Server Actions) + **React 19** + **TypeScript**
 - **SQLite** via **better-sqlite3** + **Drizzle ORM**, with versioned SQL migrations in `drizzle/`
-- **Tailwind CSS 4** design tokens taken from the Arthakram poster: cream paper, a single orange, Figtree, the *Great Vibes* script wordmark and spaced small-caps labels
+- **Tailwind CSS 4** with the Arthakram poster palette (cream paper, one orange). Type is **Source Sans 3**, a humanist face that stays readable in dense tables. The logo is the real Arthakram mark, cut from the Founders Day poster with `scripts/extract-logo.cjs` into `public/brand/`
 - `zod` validation, `qrcode` for QR SVGs, `react-markdown` (raw HTML disabled) for documents
 
 Everything runs as one deployable app. The "backend" is the `src/server/` layer (server actions, route handlers and queries), and every request goes through it.

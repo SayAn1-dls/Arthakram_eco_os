@@ -35,13 +35,13 @@ export function EvaluationForm({
       ))}
       <div className="sticky top-14 z-10 flex flex-wrap items-center justify-between gap-3 rounded-t-[var(--radius-card)] border-b border-line bg-card/95 px-5 py-4 backdrop-blur">
         <div>
-          <div className="eyebrow !text-[0.65rem]">Rubric · {rubricName}</div>
+          <div className="eyebrow">Rubric · {rubricName}</div>
           <div className="text-sm text-muted">
             {filled}/{criteria.length} criteria scored {initial.status && <Badge tone={initial.status === "submitted" ? "ok" : "warn"}>{initial.status}</Badge>}
           </div>
         </div>
         <div className="text-right">
-          <div className="tabular text-3xl font-extrabold text-ink">{total.toFixed(1)}</div>
+          <div className="tabular text-3xl font-bold text-ink">{total.toFixed(1)}</div>
           <div className="text-xs text-muted">weighted / 100</div>
         </div>
       </div>

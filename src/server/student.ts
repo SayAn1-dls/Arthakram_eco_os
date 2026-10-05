@@ -1,4 +1,5 @@
 import "server-only";
+import { cache } from "react";
 import { and, desc, eq, gt, inArray, isNotNull, ne } from "drizzle-orm";
 import { db } from "@/db";
 import {
@@ -43,24 +44,28 @@ const TYPE_TO_CATEGORY: Record<string, string> = {
   marketing_competition: "marketing_competition",
 };
 
-export function latestAssessment(userId: string) {
+/** Memoised per request. */
+export const latestAssessment = cache((userId: string) => {
   return db.select().from(clubAssessments).where(eq(clubAssessments.userId, userId)).orderBy(desc(clubAssessments.createdAt)).get() ?? null;
-}
+});
 
-export function profileOf(userId: string) {
+/** Memoised per request. */
+export const profileOf = cache((userId: string) => {
   return db.select().from(studentProfiles).where(eq(studentProfiles.userId, userId)).get() ?? null;
-}
+});
 
-export function myClubs(userId: string) {
+/** Memoised per request. */
+export const myClubs = cache((userId: string) => {
   return db
     .select({ club: clubs, role: clubMembers.role, status: clubMembers.status })
     .from(clubMembers)
     .innerJoin(clubs, eq(clubs.id, clubMembers.clubId))
     .where(eq(clubMembers.userId, userId))
     .all();
-}
+});
 
-export function participationHistory(userId: string) {
+/** Memoised per request. */
+export const participationHistory = cache((userId: string) => {
   return db
     .select({ p: participants, e: events, team: teams })
     .from(participants)
@@ -69,9 +74,10 @@ export function participationHistory(userId: string) {
     .where(and(eq(participants.userId, userId), ne(participants.status, "withdrawn")))
     .orderBy(desc(events.startsAt))
     .all();
-}
+});
 
-export function signalsFor(userId: string): StudentSignals {
+/** Memoised per request. */
+export const signalsFor = cache((userId: string): StudentSignals => {
   const profile = profileOf(userId);
   const a = latestAssessment(userId);
   const history = participationHistory(userId);
@@ -84,9 +90,9 @@ export function signalsFor(userId: string): StudentSignals {
     pastCategories: [...new Set(history.map((h) => TYPE_TO_CATEGORY[h.e.type]).filter((x): x is string => !!x))],
     clubCategories: [...new Set(clubsJoined.flatMap((c) => [c.club.category, ...Object.keys(c.club.traits)]))],
   };
-}
+});
 
-export function recommendedOpportunities(userId: string, limit = 50) {
+const allRecommendations = cache((userId: string) => {
   const s = signalsFor(userId);
   const saved = new Set(db.select({ id: savedOpportunities.opportunityId }).from(savedOpportunities).where(eq(savedOpportunities.userId, userId)).all().map((r) => r.id));
   const registered = new Set(db.select({ e: participants.eventId }).from(participants).where(eq(participants.userId, userId)).all().map((r) => r.e));
@@ -102,11 +108,15 @@ export function recommendedOpportunities(userId: string, limit = 50) {
       return { o, ...m, saved: saved.has(o.id), href: o.eventId ? `/events/${eventSlug.get(o.eventId)}` : o.sourceUrl };
     })
     .filter((x) => !x.o.deadline || x.o.deadline.getTime() > Date.now())
-    .sort((a, b) => b.score - a.score)
-    .slice(0, limit);
+    .sort((a, b) => b.score - a.score);
+});
+
+export function recommendedOpportunities(userId: string, limit = 50) {
+  return allRecommendations(userId).slice(0, limit);
 }
 
-export function clubMatches(userId: string) {
+/** Memoised per request. */
+export const clubMatches = cache((userId: string) => {
   const a = latestAssessment(userId);
   if (!a) return null;
   const byId = new Map(db.select().from(clubs).all().map((c) => [c.id, c]));
@@ -114,9 +124,10 @@ export function clubMatches(userId: string) {
     assessment: a,
     matches: a.results.map((r) => ({ ...r, club: byId.get(r.clubId) })).filter((r) => r.club),
   };
-}
+});
 
-export function suggestedMentor(userId: string) {
+/** Memoised per request. */
+export const suggestedMentor = cache((userId: string) => {
   const s = signalsFor(userId);
   const want = new Set([...s.interests, ...s.skills, ...Object.entries(s.dimensions).filter(([, v]) => v >= 0.6).map(([d]) => d)]);
   const rows = db
@@ -134,7 +145,7 @@ export function suggestedMentor(userId: string) {
   const best = scored[0];
   if (!best) return null;
   return { id: best.m.userId, name: best.m.name, area: best.hits[0] ?? best.m.categories[0] ?? "career", headline: best.m.headline, hits: best.hits };
-}
+});
 
 export function mentorMatches(userId: string) {
   const s = signalsFor(userId);
@@ -145,7 +156,8 @@ export function mentorMatches(userId: string) {
   };
 }
 
-export function whatNext(userId: string) {
+/** Memoised per request. */
+export const whatNext = cache((userId: string) => {
   const profile = profileOf(userId);
   const a = clubMatches(userId);
   const active = myClubs(userId).filter((c) => c.status === "active");
@@ -191,10 +203,11 @@ export function whatNext(userId: string) {
     weakestDimension: weakest,
     upcomingDeadline: deadline,
   });
-}
+});
 
 /** Evidence-based record of what the student has actually done. */
-export function passport(userId: string) {
+/** Memoised per request. */
+export const passport = cache((userId: string) => {
   const history = participationHistory(userId);
   const myAwards = db.select({ a: awards, e: events }).from(awards).innerJoin(events, eq(events.id, awards.eventId)).where(eq(awards.userId, userId)).orderBy(desc(awards.createdAt)).all();
   const reviews = db.select({ r: mentorReviews, mentor: users.name }).from(mentorReviews).innerJoin(users, eq(users.id, mentorReviews.mentorId)).where(eq(mentorReviews.studentId, userId)).orderBy(desc(mentorReviews.createdAt)).all();
@@ -232,9 +245,10 @@ export function passport(userId: string) {
     .sort((a, b) => b.weight - a.weight);
 
   return { history, awards: myAwards, reviews, clubs: clubsJoined, submissions: subs, skills, scored };
-}
+});
 
-export function upcomingDeadlines(userId: string) {
+/** Memoised per request. */
+export const upcomingDeadlines = cache((userId: string) => {
   const regs = participationHistory(userId).filter((h) => ["published", "live"].includes(h.e.status));
   const saved = db
     .select({ o: opportunities })
@@ -247,4 +261,4 @@ export function upcomingDeadlines(userId: string) {
     items.push({ title: h.e.title, when: h.e.status === "live" ? h.e.endsAt : h.e.startsAt, href: h.team ? `/app/team/${h.team.id}` : "/app/my-events", kind: h.e.status === "live" ? "Live · ends" : "Starts" });
   for (const s of saved) items.push({ title: s.o.title, when: s.o.deadline!, href: "/app/opportunities", kind: "Registration closes" });
   return items.sort((a, b) => a.when.getTime() - b.when.getTime()).slice(0, 6);
-}
+});

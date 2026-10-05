@@ -22,7 +22,7 @@ export default async function Explore({ searchParams }: { searchParams: Promise<
   const hits = q ? await globalSearch(q, user?.id ?? null) : [];
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-      <PageHeader eyebrow="Explore" title="Everything in the ecosystem" />
+      <PageHeader title="Explore" description="Search across events, clubs, mentors and past competitions." />
       <form className="mb-10 max-w-xl">
         <input name="q" defaultValue={q} autoFocus placeholder="Search events, clubs, mentors, problem statements…" className="h-12 w-full rounded-xl border border-line bg-white px-4 focus:border-brand focus:outline-none" />
       </form>

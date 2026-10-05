@@ -6,7 +6,7 @@ import { allows, allowsAnywhere, PLATFORM } from "@/lib/rbac-core";
 import { loadGrants } from "./rbac";
 
 export type NavItem = { href: string; label: string; icon: string; badge?: number };
-export type NavGroup = { title: string; items: NavItem[] };
+export type NavGroup = { title: string; items: NavItem[]; collapsible?: boolean };
 
 export async function buildNav(userId: string): Promise<{ groups: NavGroup[]; roles: string[]; unread: number }> {
   const grants = await loadGrants(userId);
@@ -18,43 +18,38 @@ export async function buildNav(userId: string): Promise<{ groups: NavGroup[]; ro
 
   const groups: NavGroup[] = [
     {
-      title: "You",
+      title: "Me",
       items: [
-        { href: "/app", label: "Dashboard", icon: "layout" },
-        { href: "/app/path", label: "My Path", icon: "compass" },
+        { href: "/app", label: "Home", icon: "layout" },
+        { href: "/app/my-events", label: "My events", icon: "ticket" },
         { href: "/app/opportunities", label: "Opportunities", icon: "sparkles" },
-        { href: "/app/my-events", label: "My Events", icon: "ticket" },
-        { href: "/app/find-my-club", label: "Find My Club", icon: "users" },
+        { href: "/app/find-my-club", label: "Clubs for me", icon: "users" },
         { href: "/app/mentorship", label: "Mentorship", icon: "message" },
-        { href: "/app/passport", label: "Student Passport", icon: "badge" },
-        { href: "/app/notifications", label: "Notifications", icon: "bell", badge: unread || undefined },
+        { href: "/app/passport", label: "My passport", icon: "badge" },
       ],
     },
   ];
-  const organize: NavItem[] = [];
-  if (any("events.view") || any("events.create")) organize.push({ href: "/app/events", label: "Event Workspaces", icon: "calendar" });
-  if (any("events.create")) organize.push({ href: "/app/events/new", label: "Event Builder", icon: "plus" });
-  if (organize.length) groups.push({ title: "Organize", items: organize });
-
-  const review: NavItem[] = [];
-  if (any("evaluations.submit")) review.push({ href: "/app/judge", label: "Judge Dashboard", icon: "gavel" });
-  if (isMentor) review.push({ href: "/app/mentor", label: "Mentor Dashboard", icon: "graduation" });
-  if (review.length) groups.push({ title: "Review", items: review });
+  const work: NavItem[] = [];
+  if (any("events.view") || any("events.create")) work.push({ href: "/app/events", label: "Manage events", icon: "calendar" });
+  if (any("events.create")) work.push({ href: "/app/events/new", label: "Create an event", icon: "plus" });
+  if (any("evaluations.submit")) work.push({ href: "/app/judge", label: "Judging", icon: "gavel" });
+  if (isMentor) work.push({ href: "/app/mentor", label: "Mentoring", icon: "graduation" });
+  if (work.length) groups.push({ title: "My work", items: work });
 
   const admin: NavItem[] = [];
-  if (plat("users.view")) admin.push({ href: "/app/admin", label: "Admin Overview", icon: "shield" });
-  if (plat("users.view")) admin.push({ href: "/app/admin/users", label: "Users", icon: "user" });
-  if (plat("roles.view")) admin.push({ href: "/app/admin/roles", label: "Roles & Permissions", icon: "key" });
-  if (plat("organizations.edit")) admin.push({ href: "/app/admin/organizations", label: "Orgs, Colleges & Clubs", icon: "building" });
-  if (plat("events.view")) admin.push({ href: "/app/admin/events", label: "All Events", icon: "calendar" });
+  if (plat("users.view")) admin.push({ href: "/app/admin", label: "Overview", icon: "shield" });
+  if (plat("users.view")) admin.push({ href: "/app/admin/users", label: "People & access", icon: "user" });
+  if (plat("roles.view")) admin.push({ href: "/app/admin/roles", label: "Roles", icon: "key" });
+  if (plat("organizations.edit")) admin.push({ href: "/app/admin/organizations", label: "Colleges & clubs", icon: "building" });
+  if (plat("events.view")) admin.push({ href: "/app/admin/events", label: "All events", icon: "calendar" });
   if (plat("opportunities.manage")) admin.push({ href: "/app/admin/opportunities", label: "Opportunities", icon: "sparkles" });
-  if (plat("resources.manage")) admin.push({ href: "/app/admin/resources", label: "Learning Resources", icon: "book" });
+  if (plat("resources.manage")) admin.push({ href: "/app/admin/resources", label: "Learn page", icon: "book" });
   if (plat("mentors.approve")) admin.push({ href: "/app/admin/mentors", label: "Mentors", icon: "graduation" });
-  if (plat("recommendations.manage")) admin.push({ href: "/app/admin/recommendations", label: "Recommendations", icon: "compass" });
+  if (plat("recommendations.manage")) admin.push({ href: "/app/admin/recommendations", label: "Club matching", icon: "compass" });
   if (plat("analytics.view")) admin.push({ href: "/app/admin/analytics", label: "Analytics", icon: "chart" });
-  if (plat("audit.view")) admin.push({ href: "/app/admin/audit", label: "Audit Log", icon: "scroll" });
+  if (plat("audit.view")) admin.push({ href: "/app/admin/audit", label: "Audit log", icon: "scroll" });
   if (plat("settings.manage")) admin.push({ href: "/app/admin/settings", label: "Settings", icon: "settings" });
-  if (admin.length) groups.push({ title: "Admin", items: admin });
+  if (admin.length) groups.push({ title: "Admin", items: admin, collapsible: true });
 
   const roles = [...new Set(grants.map((g) => g.roleName))];
   return { groups, roles, unread };

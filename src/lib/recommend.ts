@@ -310,7 +310,7 @@ export function nextSteps(i: NextStepInput): NextStep[] {
   if (!i.hasProfile) {
     steps.push({
       title: "Complete your profile",
-      detail: "Interests and skills power every recommendation Arthakram makes for you.",
+      detail: "Add your interests and skills so suggestions fit you.",
       href: "/app/profile",
       cta: "Add interests",
     });
@@ -318,14 +318,14 @@ export function nextSteps(i: NextStepInput): NextStep[] {
   if (!i.hasAssessment) {
     steps.push({
       title: "Take the Find My Club assessment",
-      detail: "17 questions. Find out which clubs fit how you think — with reasons.",
+      detail: "17 quick questions. You’ll see which clubs suit you and why.",
       href: "/app/find-my-club",
       cta: "Start",
     });
   } else if (i.activeClubCount === 0 && i.topClub) {
     steps.push({
       title: `Join ${i.topClub.name}`,
-      detail: `Your strongest club match (${i.topClub.score}%). Clubs are where skills compound.`,
+      detail: `Your strongest club match (${i.topClub.score}%).`,
       href: `/clubs/${i.topClub.slug}`,
       cta: "View club",
     });
@@ -341,7 +341,7 @@ export function nextSteps(i: NextStepInput): NextStep[] {
   if (i.mentorReviewCount === 0 && !i.pendingMentorRequest && i.suggestedMentor) {
     steps.push({
       title: `Meet a ${i.suggestedMentor.area} mentor`,
-      detail: `${i.suggestedMentor.name} reviews work in your area. Get honest feedback early.`,
+      detail: `${i.suggestedMentor.name} reviews work in this area.`,
       href: `/mentors/${i.suggestedMentor.id}`,
       cta: "Request review",
     });
@@ -349,7 +349,7 @@ export function nextSteps(i: NextStepInput): NextStep[] {
   if (i.weakestDimension) {
     steps.push({
       title: `Strengthen ${i.weakestDimension.toLowerCase()}`,
-      detail: "Your lowest-scoring area among the skills your top clubs value.",
+      detail: "Your best-matching club relies on this, and it’s where you scored lowest.",
       href: "/learn",
       cta: "Resources",
     });
@@ -357,7 +357,7 @@ export function nextSteps(i: NextStepInput): NextStep[] {
   if (i.exploreClub) {
     steps.push({
       title: `Explore ${i.exploreClub.name}`,
-      detail: `${i.exploreClub.score}% match — a second club broadens what you can compete in.`,
+      detail: `${i.exploreClub.score}% match. Worth a look alongside the club you’re already in.`,
       href: `/clubs/${i.exploreClub.slug}`,
       cta: "View club",
     });

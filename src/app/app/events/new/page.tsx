@@ -20,7 +20,7 @@ export default async function NewEventPage() {
   if (!allowed.length) return <Forbidden message="You need event-creation access for a club. Ask an admin or your club lead." />;
   return (
     <>
-      <PageHeader eyebrow="Event Builder" title="Create an event" description="Everything you configure here becomes the event workspace: one source of truth for teams, rounds, judging, documentation and results." />
+      <PageHeader title="Create an event" description="Fill in the basics now. You can change any of it later, and nothing is public until you publish." />
       <Card>
         <EventForm action={createEvent} clubs={allowed} submitLabel="Create event workspace" />
       </Card>

@@ -11,7 +11,7 @@ export default async function SignupPage() {
   return (
     <>
       <div className="eyebrow mb-2 text-brand-deep">Join the ecosystem</div>
-      <h1 className="text-3xl font-extrabold tracking-tight">Create your Arthakram account</h1>
+      <h1 className="text-3xl font-bold">Create your Arthakram account</h1>
       <p className="mt-2 text-sm text-muted">
         Already have one?{" "}
         <Link href="/login" className="font-semibold text-brand-deep hover:underline">

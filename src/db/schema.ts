@@ -172,7 +172,7 @@ export const clubMembers = sqliteTable(
     status: text("status", { enum: ["pending", "active"] }).notNull().default("pending"),
     joinedAt: createdAt(),
   },
-  (t) => [primaryKey({ columns: [t.clubId, t.userId] })],
+  (t) => [primaryKey({ columns: [t.clubId, t.userId] }), index("club_members_user_idx").on(t.userId)],
 );
 
 /* ───────────────────────────── Events ───────────────────────────── */
@@ -341,6 +341,7 @@ export const participants = sqliteTable(
   (t) => [
     uniqueIndex("participant_event_user_uq").on(t.eventId, t.userId),
     index("participants_team_idx").on(t.teamId),
+    index("participants_user_idx").on(t.userId),
   ],
 );
 
@@ -394,7 +395,7 @@ export const submissions = sqliteTable(
     submittedById: text("submitted_by_id").references(() => users.id),
     updatedAt: ts("updated_at"),
   },
-  (t) => [uniqueIndex("submission_round_team_uq").on(t.roundId, t.teamId)],
+  (t) => [uniqueIndex("submission_round_team_uq").on(t.roundId, t.teamId), index("submissions_team_idx").on(t.teamId)],
 );
 
 export const rubrics = sqliteTable("rubrics", {
@@ -441,7 +442,7 @@ export const judgeAssignments = sqliteTable(
       .references(() => users.id, { onDelete: "cascade" }),
     createdAt: createdAt(),
   },
-  (t) => [uniqueIndex("judge_assignment_uq").on(t.roundId, t.teamId, t.judgeUserId)],
+  (t) => [uniqueIndex("judge_assignment_uq").on(t.roundId, t.teamId, t.judgeUserId), index("judge_assignments_judge_idx").on(t.judgeUserId)],
 );
 
 export const evaluations = sqliteTable(
@@ -470,7 +471,11 @@ export const evaluations = sqliteTable(
     submittedAt: ts("submitted_at"),
     updatedAt: ts("updated_at"),
   },
-  (t) => [uniqueIndex("evaluation_uq").on(t.roundId, t.teamId, t.judgeUserId)],
+  (t) => [
+    uniqueIndex("evaluation_uq").on(t.roundId, t.teamId, t.judgeUserId),
+    index("evaluations_team_idx").on(t.teamId),
+    index("evaluations_judge_idx").on(t.judgeUserId),
+  ],
 );
 
 export const evaluationScores = sqliteTable(
@@ -523,7 +528,7 @@ export const timers = sqliteTable("timers", {
   visibleToParticipants: bool("visible_to_participants").notNull().default(true),
   updatedAt: ts("updated_at"),
   createdAt: createdAt(),
-});
+}, (t) => [index("timers_event_idx").on(t.eventId)]);
 
 export const QR_PURPOSES = [
   "registration",
@@ -571,7 +576,7 @@ export const announcements = sqliteTable("announcements", {
   pinned: bool("pinned").notNull().default(false),
   createdById: text("created_by_id").references(() => users.id),
   createdAt: createdAt(),
-});
+}, (t) => [index("announcements_event_idx").on(t.eventId)]);
 
 export const feedback = sqliteTable("feedback", {
   id: id(),
@@ -730,7 +735,7 @@ export const mentorRequests = sqliteTable("mentor_requests", {
     .default("pending"),
   createdAt: createdAt(),
   respondedAt: ts("responded_at"),
-});
+}, (t) => [index("mentor_requests_mentor_idx").on(t.mentorId), index("mentor_requests_student_idx").on(t.studentId)]);
 
 export const mentorReviews = sqliteTable("mentor_reviews", {
   id: id(),
@@ -854,7 +859,7 @@ export const auditLogs = sqliteTable(
     after: json<unknown>("after"),
     createdAt: createdAt(),
   },
-  (t) => [index("audit_event_idx").on(t.eventId), index("audit_created_idx").on(t.createdAt)],
+  (t) => [index("audit_event_idx").on(t.eventId), index("audit_created_idx").on(t.createdAt), index("audit_actor_idx").on(t.actorId)],
 );
 
 export const platformSettings = sqliteTable("platform_settings", {

@@ -17,7 +17,7 @@ export default async function FeedbackForm({ params }: { params: Promise<{ slug:
   return (
     <div className="mx-auto max-w-lg px-4 py-16">
       <div className="eyebrow mb-2 text-brand-deep">Feedback</div>
-      <h1 className="mb-6 text-3xl font-extrabold">How was {e.title}?</h1>
+      <h1 className="mb-6 text-3xl font-bold">How was {e.title}?</h1>
       <Card>
         {user ? (
           <ActionForm action={submitFeedback} hidden={{ eventId: e.id }} className="space-y-4">

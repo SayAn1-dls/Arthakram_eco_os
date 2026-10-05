@@ -18,7 +18,7 @@ export default async function MentorsPage({ searchParams }: { searchParams: Prom
   }
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
-      <PageHeader eyebrow="Mentor Connect" title="Get reviewed by people who’ve done it" description="Request structured feedback on projects, cases, pitches and portfolios. Reviews become evidence on your Student Passport." actions={<LinkButton href="/app/mentor" variant="outline">Become a mentor</LinkButton>} />
+      <PageHeader eyebrow="Mentor Connect" title="Mentors" description="People from industry who review student projects, cases, pitches and portfolios. Their feedback is saved to your passport." actions={<LinkButton href="/app/mentor" variant="outline">Become a mentor</LinkButton>} />
       <form className="mb-4 max-w-md">
         <input name="q" defaultValue={q} placeholder="Search by name, skill or industry…" className="h-10 w-full rounded-lg border border-line bg-white px-3 text-sm focus:border-brand focus:outline-none" />
       </form>

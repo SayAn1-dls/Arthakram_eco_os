@@ -33,7 +33,7 @@ export default async function JudgeDashboard() {
   return (
     <>
       <AutoRefresh intervalMs={20000} />
-      <PageHeader eyebrow="Review" title="Judge dashboard" description="Only the teams you've been assigned. Score with the published rubric — weighted totals are computed for you." />
+      <PageHeader eyebrow="Review" title="Judging" description="The teams you’ve been asked to score. Pick a team, look at their work, then fill in the rubric. Totals are worked out for you." />
       <StatRow className="mb-8 lg:grid-cols-4">
         <Stat value={byEvent.size} label="Events" />
         <Stat value={assigns.length} label="Assigned evaluations" />
@@ -49,7 +49,7 @@ export default async function JudgeDashboard() {
           return (
             <section key={eventId} className="space-y-4">
               <div className="flex flex-wrap items-center gap-3">
-                <h2 className="text-xl font-extrabold">{ev.title}</h2>
+                <h2 className="text-xl font-bold">{ev.title}</h2>
                 <StatusBadge status={ev.status} />
               </div>
               {active.some((a) => a.id === eventId) && (

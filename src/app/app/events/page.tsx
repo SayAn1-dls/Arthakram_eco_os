@@ -27,8 +27,8 @@ export default async function MyEventWorkspaces() {
     <>
       <PageHeader
         eyebrow="Organize"
-        title="Event workspaces"
-        description="Every event you can operate. Access comes from roles granted on the event, its club, college or organization."
+        title="Manage events"
+        description="Events you help run. Open one to see its control room."
         actions={allowsAnywhere(grants, "events.create") ? <LinkButton href="/app/events/new">New event</LinkButton> : null}
       />
       {rows.length === 0 ? (

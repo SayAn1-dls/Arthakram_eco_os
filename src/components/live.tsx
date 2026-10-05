@@ -84,7 +84,7 @@ export function TimerFace({ timer, now, size = "md" }: { timer: LiveTimer; now: 
       </div>
       <div
         className={cn(
-          "tabular font-extrabold leading-none tracking-tight",
+          "tabular font-bold leading-none",
           size === "xl" ? "text-[clamp(3rem,10vw,7rem)]" : size === "md" ? "text-4xl" : "text-xl",
           up ? "text-bad" : warn ? "text-brand-deep" : "text-ink",
         )}

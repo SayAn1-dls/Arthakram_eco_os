@@ -43,7 +43,7 @@ export default async function TeamDetail({ params }: { params: Promise<{ eventId
         ← All teams
       </Link>
       <div className="flex flex-wrap items-center gap-3">
-        <h2 className="text-2xl font-extrabold">{team.name}</h2>
+        <h2 className="text-2xl font-bold">{team.name}</h2>
         <Badge tone="brand">{team.code}</Badge>
         <StatusBadge status={team.status} />
       </div>

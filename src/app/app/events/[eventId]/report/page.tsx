@@ -41,7 +41,7 @@ export default async function ReportPage({ params }: { params: Promise<{ eventId
       </div>
       <Card>
         <div className="eyebrow text-brand-deep">Final report</div>
-        <h2 className="mt-2 text-3xl font-extrabold tracking-tight">{event.title}</h2>
+        <h2 className="mt-2 text-3xl font-bold">{event.title}</h2>
         <p className="mt-1 text-muted">
           {humanize(event.type)} · {ctx.club?.name ?? ctx.org?.name} · {fmtDate(event.startsAt)} – {fmtDate(event.endsAt)} · {event.venue ?? humanize(event.mode)}
         </p>

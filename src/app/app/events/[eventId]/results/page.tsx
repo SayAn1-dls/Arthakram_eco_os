@@ -88,7 +88,7 @@ export default async function ResultsPage({ params, searchParams }: { params: Pr
               {res.rows.map((r) => (
                 <tr key={r.teamId} className={r.rank <= 3 ? "bg-brand-wash/40" : ""}>
                   <Td>
-                    <span className={cn("inline-flex h-8 w-8 items-center justify-center rounded-full font-extrabold", r.rank === 1 ? "bg-brand text-white" : r.rank <= 3 ? "bg-brand-soft text-brand-deep" : "bg-paper-2")}>{r.rank}</span>
+                    <span className={cn("inline-flex h-8 w-8 items-center justify-center rounded-full font-bold", r.rank === 1 ? "bg-brand text-white" : r.rank <= 3 ? "bg-brand-soft text-brand-deep" : "bg-paper-2")}>{r.rank}</span>
                   </Td>
                   <Td>
                     <div className="font-bold text-ink">{r.teamName}</div>
@@ -96,7 +96,7 @@ export default async function ResultsPage({ params, searchParams }: { params: Pr
                   </Td>
                   <Td>
                     <div className="flex items-center gap-2">
-                      <span className="w-12 tabular text-lg font-extrabold text-ink">{r.average.toFixed(1)}</span>
+                      <span className="w-12 tabular text-lg font-bold text-ink">{r.average.toFixed(1)}</span>
                       <div className="h-2 flex-1 rounded bg-paper-2">
                         <div className="h-2 rounded bg-brand" style={{ width: `${(r.average / maxAvg) * 100}%` }} />
                       </div>

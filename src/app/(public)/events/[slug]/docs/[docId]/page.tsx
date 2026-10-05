@@ -20,7 +20,7 @@ export default async function PublicDoc({ params }: { params: Promise<{ slug: st
     <article className="mx-auto max-w-3xl px-4 py-12">
       <Link href={`/events/${slug}#docs`} className="text-sm text-muted hover:text-brand-deep">← {e.title}</Link>
       <div className="mt-4"><Badge tone="brand">{humanize(d.section)}</Badge></div>
-      <h1 className="mt-3 text-4xl font-extrabold tracking-tight">{d.title}</h1>
+      <h1 className="mt-3 text-4xl font-bold">{d.title}</h1>
       <p className="mt-1 text-sm text-muted">Updated {fmtDate(d.updatedAt ?? d.createdAt)}</p>
       <hr className="rule my-8" />
       <Markdown>{d.content}</Markdown>

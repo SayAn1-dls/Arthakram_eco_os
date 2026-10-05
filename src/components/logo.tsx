@@ -1,42 +1,42 @@
+import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/cn";
+import logo from "../../public/brand/arthakram-logo.png";
+import lockup from "../../public/brand/arthakram-lockup.png";
+import feather from "../../public/brand/arthakram-feather.png";
 
-export function Feather({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 64 64" aria-hidden className={cn("text-brand", className)}>
-      <path
-        d="M57 3c-17 1-32 11-39 27-3.6 8.3-4.8 15.8-5 21.4l4.3-2.3c2-7 6-13.2 11.4-17.6-3.6 5.6-6 10.9-7 15.2C35 43.6 47 33.3 53 19.6 55.8 13.3 57.6 8 57 3Z"
-        fill="currentColor"
-      />
-      <path
-        d="M43 12.5 33.5 19M48.5 20.5l-11 5.6M50 29.5l-9.5 3.8"
-        stroke="var(--color-paper)"
-        strokeWidth="2.4"
-        strokeLinecap="round"
-        fill="none"
-      />
-      <path d="M13.5 50.5 7 61" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" />
-    </svg>
-  );
+/**
+ * The real Arthakram mark, cut from the Founders Day poster
+ * (see scripts/extract-logo.cjs). Never redraw it in code.
+ */
+export function Feather({ className, size = 40 }: { className?: string; size?: number }) {
+  return <Image src={feather} alt="" width={size} height={size} className={cn("select-none", className)} aria-hidden />;
 }
+
+const HEIGHTS = { sm: 56, md: 72, lg: 120 } as const;
 
 export function Wordmark({
   href = "/",
   size = "md",
   subtitle,
+  withClubLine = false,
+  priority = false,
 }: {
   href?: string;
-  size?: "sm" | "md" | "lg";
+  size?: keyof typeof HEIGHTS;
+  /** Small label set beside the logo, e.g. "Ecosystem". */
   subtitle?: string;
+  /** Use the full poster lockup with "Product & Consulting Club". */
+  withClubLine?: boolean;
+  priority?: boolean;
 }) {
-  const s = { sm: ["h-7 w-7", "text-[1.7rem]"], md: ["h-9 w-9", "text-[2.1rem]"], lg: ["h-16 w-16", "text-[3.6rem]"] }[size];
+  const src = withClubLine ? lockup : logo;
+  const h = HEIGHTS[size];
+  const w = Math.round((src.width / src.height) * h);
   return (
-    <Link href={href} className="group inline-flex flex-col">
-      <span className="inline-flex items-end gap-1">
-        <Feather className={cn(s[0], "-mr-2 -mb-1 transition-transform group-hover:-rotate-6")} />
-        <span className={cn("font-script leading-none text-ink", s[1])}>Arthakram</span>
-      </span>
-      {subtitle && <span className="eyebrow mt-1 !text-[0.6rem] !tracking-[0.28em] pl-1">{subtitle}</span>}
+    <Link href={href} className="inline-flex items-end gap-2" aria-label="Arthakram home">
+      <Image src={src} alt="Arthakram" width={w} height={h} priority={priority} className="select-none" />
+      {subtitle && <span className="mb-1 rounded bg-paper-2 px-1.5 py-0.5 text-[11px] font-semibold text-ink-2">{subtitle}</span>}
     </Link>
   );
 }
