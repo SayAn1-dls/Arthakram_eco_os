@@ -31,3 +31,24 @@ export function parseList(value: FormDataEntryValue | null | undefined): string[
     .map((s) => s.trim())
     .filter(Boolean);
 }
+
+/** Generate a URL-safe slug from any string. */
+export function slugify(input: string): string {
+  return input
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/[\s_]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+/** Truncate a string to maxLength, appending "…" if cut. */
+export function truncate(str: string, maxLength: number): string {
+  if (str.length <= maxLength) return str;
+  return str.slice(0, maxLength - 1) + "…";
+}
+
+/** Deep-clone a plain JSON-serialisable object. */
+export function deepClone<T>(obj: T): T {
+  return JSON.parse(JSON.stringify(obj));
+}
