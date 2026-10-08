@@ -52,3 +52,30 @@ export function truncate(str: string, maxLength: number): string {
 export function deepClone<T>(obj: T): T {
   return JSON.parse(JSON.stringify(obj));
 }
+
+/** Debounce a function — delays execution until after `waitMs` of inactivity. */
+export function debounce<T extends (...args: unknown[]) => void>(
+  fn: T,
+  waitMs: number
+): (...args: Parameters<T>) => void {
+  let timer: ReturnType<typeof setTimeout>;
+  return (...args: Parameters<T>) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn(...args), waitMs);
+  };
+}
+
+/** Throttle a function — at most once per `limitMs`. */
+export function throttle<T extends (...args: unknown[]) => void>(
+  fn: T,
+  limitMs: number
+): (...args: Parameters<T>) => void {
+  let last = 0;
+  return (...args: Parameters<T>) => {
+    const now = Date.now();
+    if (now - last >= limitMs) {
+      last = now;
+      fn(...args);
+    }
+  };
+}
